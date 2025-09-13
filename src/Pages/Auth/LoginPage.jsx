@@ -22,7 +22,7 @@ function LoginPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors,reset },
   } = useForm({
     resolver: zodResolver(schema),
  
@@ -35,8 +35,9 @@ let navigate=useNavigate();
         formData,
         
       );
+      
       localStorage.setItem("token",data.token);
-      console.log(data.token)
+ 
        toast.success('login successful!', {
         position: "top-center",
         autoClose: 1000,
@@ -45,6 +46,7 @@ let navigate=useNavigate();
         pauseOnHover: true,
         draggable: true,
       });
+    
      setInterval(()=>{
       navigate("/")
      },1000)
