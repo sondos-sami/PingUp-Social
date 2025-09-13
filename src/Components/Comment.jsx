@@ -18,7 +18,6 @@ function Comment({ comment, userId }) {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
 const queryClient= useQueryClient()
- 
   async function deleteComment() {
     try {
       const response = await axios.delete(
@@ -64,12 +63,17 @@ const queryClient= useQueryClient()
           onError={(e) => {
             e.target.src = image;
           }}
-          src={comment.commentCreator?.photo || image}
+         
+           src={
+    comment.commentCreator?._id === userData?._id
+      ? userData?.photo || image
+      : comment.commentCreator?.photo || image
+  }
           alt={`${comment.commentCreator?.name}'s profile`}
           className="w-10 h-10 rounded-full bg-gray-200 object-cover"
         />
       </div>
-
+  
       {/* Comment content */}
       <div className="flex-1 min-w-0">
         {/* Header */}
