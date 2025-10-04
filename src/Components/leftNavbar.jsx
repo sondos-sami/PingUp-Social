@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import icon from "../assets/icons8-power-24.png";
+import { NavLink, useNavigate } from "react-router-dom";
+import icon from "/icons8-power-24.png";
 import {
   Modal,
   ModalContent,
@@ -9,6 +9,7 @@ import {
 import { useContext } from "react";
 import { authContext } from "../Context/authContext";
 import CreatePosts from "../Pages/Posts/CreatePosts";
+
 function LeftNavbar() {
   const navigate = useNavigate();
   const { isOpen: isModalOpen, onOpen, onOpenChange } = useDisclosure();
@@ -17,11 +18,11 @@ function LeftNavbar() {
   function logOut() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/login");
+    navigate("/auth/login");
   }
 
   return (
-    <div className="hidden md:flex fixed top-0 left-0 flex-col w-64 h-screen bg-white border-r border-gray-300 shadow-md">
+    <div className="hidden md:flex flex-col w-64 bg-white border-r border-gray-300 shadow-md">
       {/* Logo */}
       <div className="flex p-4 items-center justify-between">
         <div className="flex items-center">
@@ -34,19 +35,33 @@ function LeftNavbar() {
 
       {/* Links */}
       <div className="flex-1 p-5 space-y-5 overflow-y-auto">
-        <div className="text-gray-600 hover:text-blue-600 transition-colors">
-          <i className="fa-solid fa-house me-3"></i>
-          <Link to="/">
-            <span className="font-semibold">Feed</span>
-          </Link>
-        </div>
 
-        <div className="text-gray-600 hover:text-blue-600 transition-colors">
+        {/* Feed */}
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            `flex items-center hover:text-blue-600 transition-colors ${
+              isActive ? "text-blue-600 font-bold" : "text-gray-700"
+            }`
+          }
+        >
+          <i className="fa-solid fa-house me-3"></i>
+          Feed
+        </NavLink>
+
+        {/* Profile */}
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `flex items-center hover:text-blue-600 transition-colors ${
+              isActive ? "text-blue-600 font-bold" : "text-gray-700"
+            }`
+          }
+        >
           <i className="fa fa-user me-3"></i>
-          <Link to="profile">
-            <span className="font-semibold">Profile</span>
-          </Link>
-        </div>
+          Profile
+        </NavLink>
 
         {/* Create Post Button */}
         <Button
@@ -68,7 +83,7 @@ function LeftNavbar() {
         {/* Logout */}
         <div
           onClick={logOut}
-          className="cursor-pointer text-gray-600 hover:text-blue-600 transition-colors"
+          className="cursor-pointer flex items-center text-gray-600 hover:text-blue-600 transition-colors"
         >
           <i className="fa-solid fa-right-from-bracket me-3"></i>
           <span className="font-semibold">Logout</span>
@@ -79,6 +94,3 @@ function LeftNavbar() {
 }
 
 export default LeftNavbar;
-
-
- 

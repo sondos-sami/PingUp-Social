@@ -22,7 +22,7 @@ function ProfilePage() {
   const { userData } = useContext(authContext);
   const queryClient = useQueryClient();
 
-  // Modals
+ 
   const {
     isOpen: isPhotoOpen,
     onOpen: onPhotoOpen,
@@ -44,7 +44,7 @@ function ProfilePage() {
   });
   const [isUploading, setIsUploading] = useState(false);
 
-  // Fetch posts
+ 
   const { data, isLoading } = useQuery({
     queryKey: ["userPosts", userData?._id],
     queryFn: () => getUserPosts(userData?._id),
@@ -54,7 +54,6 @@ function ProfilePage() {
   const posts = data?.posts || [];
 
  
-  // --- Photo Mutation ---
   const uploadPhotoMutation = useMutation({
     mutationFn: async (file) => {
       const formData = new FormData();
@@ -72,26 +71,70 @@ function ProfilePage() {
       );
       return data;
     },
-    onSuccess: (data) => {
-      if (data?.message === "success") {
-
-        toast.success("Profile photo updated!");
+  
+onSuccess: (data) => {
+  if (data?.message === "success") {
+    toast.success("Profile photo updated!");
     setTimeout(() => onPhotoOpenChange(false), 100);
-      
-        setUserData((prev) => ({
-          ...prev,
-          photo: data.user.photo,  
-        }));
+   
+    setUserData((prev) => ({
+      ...prev,
+      photo: data.user.photo,  
+    }));
 
-        
-        queryClient.invalidateQueries(["userPosts", userData?._id]);
-        
+     queryClient.setQueryData(["userPosts", userData?._id], (oldData) => {
+      if (!oldData) return oldDat    
+      return {
+        ...oldData,
+        posts: oldData.posts.map(post => ({
+          ...post,
+          user: {
+            ...post.user,
+            photo: data.user.photo
+          },
+          comments: post.comments?.map(comment => ({
+            ...comment,
+            commentCreator: comment.commentCreator?._id === userData?._id ? {
+              ...comment.commentCreator,
+              photo: data.user.photo
+            } : comment.commentCreator
+          })) || []
+        }))
+      };
+    });
 
-        setSelectedPhoto(null);
-        setPreview(null);
+
+    queryClient.setQueryData(["posts"], (oldData) => {
+      if (!oldData) return oldData;
       
-      }
-    },
+      return {
+        ...oldData,
+        posts: oldData.posts.map(post => ({
+          ...post,
+          user: post.user?._id === userData?._id ? {
+            ...post.user,
+            photo: data.user.photo
+          } : post.user,
+          comments: post.comments?.map(comment => ({
+            ...comment,
+            commentCreator: comment.commentCreator?._id === userData?._id ? {
+              ...comment.commentCreator,
+              photo: data.user.photo
+            } : comment.commentCreator
+          })) || []
+        }))
+      };
+    });
+
+    // Invalidate queries to ensure fresh data
+    queryClient.invalidateQueries(["userPosts", userData?._id]);
+    queryClient.invalidateQueries(["posts"]);
+    queryClient.invalidateQueries(["user"]);
+    
+    setSelectedPhoto(null);
+    setPreview(null);
+  }
+},
  
   });
 
@@ -157,7 +200,7 @@ function ProfilePage() {
         <div className="absolute -top-33 left-6">
           <div className="relative">
             <img
-              src={preview || userData?.photo || "../assets/Portrait_Placeholder.png"}
+              src={preview||  userData?.photo || "../assets/Portrait_Placeholder.png"}
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover bg-gray-200 border-4 border-white"
             />

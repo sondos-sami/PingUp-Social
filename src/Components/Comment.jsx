@@ -16,12 +16,12 @@ import {  useMutation, useQueryClient } from "@tanstack/react-query";
 function Comment({ comment, userId }) {
   const { userData } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [content, setContent] = useState(comment.content);
+  const [content, setContent] = useState(comment?.content);
 const queryClient= useQueryClient()
   async function deleteComment() {
     try {
       const response = await axios.delete(
-        `https://linked-posts.routemisr.com/comments/${comment._id}`,
+        `https://linked-posts.routemisr.com/comments/${comment?._id}`,
         {
           headers: { token: localStorage.getItem("token") },
         }
@@ -35,10 +35,10 @@ const queryClient= useQueryClient()
 
  
   const { mutate: handleUpdate, isLoading: updating } = useMutation({
-    mutationKey: ["UpdateComment", comment._id],
+    mutationKey: ["UpdateComment", comment?._id],
     mutationFn: async () => {
       const response = await axios.put(
-        `https://linked-posts.routemisr.com/comments/${comment._id}`,
+        `https://linked-posts.routemisr.com/comments/${comment?._id}`,
         { content },
         {
           headers: { token: localStorage.getItem("token") },
@@ -65,11 +65,11 @@ const queryClient= useQueryClient()
           }}
          
            src={
-    comment.commentCreator?._id === userData?._id
+    comment?.commentCreator?._id === userData?._id
       ? userData?.photo || image
       : comment.commentCreator?.photo || image
   }
-          alt={`${comment.commentCreator?.name}'s profile`}
+          alt={`${comment?.commentCreator?.name}'s profile`}
           className="w-10 h-10 rounded-full bg-gray-200 object-cover"
         />
       </div>
@@ -80,16 +80,16 @@ const queryClient= useQueryClient()
         <div className="flex items-center justify-between">
           <div className="flex items-baseline space-x-2">
             <h1 className="font-bold text-gray-900 truncate">
-              {comment.commentCreator?.name || "Unknown User"}
+              {comment?.commentCreator?.name || "Unknown User"}
             </h1>
             <span className="text-xs text-gray-400">•</span>
             <h3 className="text-gray-500 text-sm whitespace-nowrap">
-              {formatCreatedAt(comment.createdAt)}
+              {formatCreatedAt(comment?.createdAt)}
             </h3>
           </div>
 
           {/* Dropdown menu for actions */}
-          {comment.commentCreator?._id === userData._id &&
+          {comment?.commentCreator?._id === userData?._id &&
             userId === userData._id && (
               <Dropdown>
                 <DropdownTrigger>
@@ -140,7 +140,7 @@ const queryClient= useQueryClient()
 
         {/* Content */}
         {!isEditing ? (
-          <p className="mt-1 text-gray-800 break-words">{comment.content}</p>
+          <p className="mt-1 text-gray-800 break-words">{comment?.content}</p>
         ) : (
           <div className="mt-2">
             <Input
@@ -156,7 +156,7 @@ const queryClient= useQueryClient()
                 variant="bordered"
                 onClick={() => {
                   setIsEditing(false);
-                  setContent(comment.content);
+                  setContent(comment?.content);
                 }}
               >
                 Cancel

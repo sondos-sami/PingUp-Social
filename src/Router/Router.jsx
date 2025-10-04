@@ -12,7 +12,7 @@ import ProtectedAuthRoute from "./ProtectedAuthRoute";
 
 const Router = createBrowserRouter([
   {
-    path: "/",
+    path: "/auth",
     element: <AuthLayout />,
     children: [
       {
@@ -34,31 +34,20 @@ const Router = createBrowserRouter([
     ],
   },
   {
-    path: "",
+    path: "/",
     element: (
       <ProtectedRoute>
         <MainLayout />
       </ProtectedRoute>
     ),
     children: [
-      {
-        index: true,
-        element: <FeedPage />,  
-      },
-      {
-        path: "profile",
-        element: <ProfilePage />,  
-      },
-      {
-        path: "postDetails/:id",
-        element: <PostDetails />,  
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
+      { index: true, element: <FeedPage /> },
+      { path: "/profile", element: <ProfilePage /> },
+      { path: "postDetails/:id", element: <PostDetails /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
+
 
 export default Router;

@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import icon from "../assets/icons8-power-24.png";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import icon from "/icons8-power-24.png";
 import { Modal, ModalContent, Button, useDisclosure } from "@heroui/react";
 import { useContext, useState } from "react";
 import { authContext } from "../Context/authContext";
@@ -8,15 +8,14 @@ import CreatePosts from "../Pages/Posts/CreatePosts";
 function TopNavbar() {
   const navigate = useNavigate();
   const { isOpen: isModalOpen, onOpen, onOpenChange } = useDisclosure();
-  const { setIsLoggedIn,userData } = useContext(authContext);
- 
+  const { setIsLoggedIn, userData } = useContext(authContext);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
   function logOut() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/login");
+    navigate("/auth/login");
   }
 
   return (
@@ -28,7 +27,6 @@ function TopNavbar() {
           <span className="ml-2 font-bold text-blue-700">PingUp</span>
         </div>
 
-        
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-2">
             <img
@@ -50,24 +48,31 @@ function TopNavbar() {
           </button>
         </div>
       </div>
- 
+
       {menuOpen && (
         <div className="bg-white border-t border-gray-300 mx-2 shadow-md">
           <div className="px-4 py-3 space-y-3">
-            <Link
+            <NavLink
               to="/"
               onClick={() => setMenuOpen(false)}
-              className="block text-gray-600 hover:text-blue-600"
-            >
+  className={({ isActive }) =>
+            `flex items-center hover:text-blue-600 transition-colors ${
+              isActive ? "text-blue-600 font-bold" : "text-gray-700"
+            }`
+          }            >
               Feed
-            </Link>
-            <Link
+            </NavLink>
+
+            <NavLink
               to="profile"
               onClick={() => setMenuOpen(false)}
-              className="block text-gray-600 hover:text-blue-600"
-            >
+   className={({ isActive }) =>
+            `flex items-center hover:text-blue-600 transition-colors ${
+              isActive ? "text-blue-600 font-bold" : "text-gray-700"
+            }`
+          }            >
               Profile
-            </Link>
+            </NavLink>
 
             <Button
               onPress={onOpen}

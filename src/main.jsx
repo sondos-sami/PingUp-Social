@@ -1,6 +1,6 @@
  
 import { createRoot } from 'react-dom/client'
-import './index.css'
+
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
  
  import { RouterProvider } from "react-router-dom";

@@ -8,13 +8,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Link, useNavigate } from "react-router-dom";
  
-const schema = z
-  .object({
-    email: z.string().email("Invalid email format"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    
-  })
- 
+const schema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z
+    .string()
+    .regex(
+      /^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "Password must be at least 8 characters long and include at least one uppercase letter and one special character (@$!%*?&)"
+    ),
+});
+
  
 
 function LoginPage() {
