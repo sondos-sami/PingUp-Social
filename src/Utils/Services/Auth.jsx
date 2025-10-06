@@ -12,7 +12,7 @@ export async function getUserPosts(id) {
         },
       }
     );
-    console.log(data);
+ 
     return data;
   } catch (err) {
     console.log(err);

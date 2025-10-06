@@ -90,7 +90,7 @@ const queryClient= useQueryClient()
 
           {/* Dropdown menu for actions */}
           {comment?.commentCreator?._id === userData?._id &&
-            userId === userData._id && (
+            userId === userData?._id && (
               <Dropdown>
                 <DropdownTrigger>
                   <Button

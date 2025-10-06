@@ -116,7 +116,7 @@ let navigate=useNavigate();
          Login
         </Button>
         <p className="mx-auto">Don’t have an account?
-            <Link to='/register' className="text-blue-700">Sign up</Link>
+            <Link to='/auth/register' className="text-blue-700">Sign up</Link>
 </p>
       
       </Form>

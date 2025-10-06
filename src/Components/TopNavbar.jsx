@@ -52,27 +52,31 @@ function TopNavbar() {
       {menuOpen && (
         <div className="bg-white border-t border-gray-300 mx-2 shadow-md">
           <div className="px-4 py-3 space-y-3">
-            <NavLink
-              to="/"
-              onClick={() => setMenuOpen(false)}
-  className={({ isActive }) =>
-            `flex items-center hover:text-blue-600 transition-colors ${
-              isActive ? "text-blue-600 font-bold" : "text-gray-700"
-            }`
-          }            >
-              Feed
-            </NavLink>
+            <div onClick={() => setMenuOpen(false)}>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `flex items-center hover:text-blue-600 transition-colors ${
+                    isActive ? "text-blue-600 font-bold" : "text-gray-700"
+                  }`
+                }
+              >
+                Feed
+              </NavLink>
+            </div>
 
-            <NavLink
-              to="profile"
-              onClick={() => setMenuOpen(false)}
-   className={({ isActive }) =>
-            `flex items-center hover:text-blue-600 transition-colors ${
-              isActive ? "text-blue-600 font-bold" : "text-gray-700"
-            }`
-          }            >
-              Profile
-            </NavLink>
+            <div onClick={() => setMenuOpen(false)}>
+              <NavLink
+                to="profile"
+                className={({ isActive }) =>
+                  `flex items-center hover:text-blue-600 transition-colors ${
+                    isActive ? "text-blue-600 font-bold" : "text-gray-700"
+                  }`
+                }
+              >
+                Profile
+              </NavLink>
+            </div>
 
             <Button
               onPress={onOpen}

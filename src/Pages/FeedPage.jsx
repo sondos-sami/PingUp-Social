@@ -21,7 +21,7 @@ function FeedPage() {
         <LoadingData times={5} />
       ) : (
         posts.map((post) => (
-          <Post key={post.id} post={post} commentLimits={1} />
+          <Post key={post?.id} post={post} commentLimits={1} />
         ))
       )}
     </div>

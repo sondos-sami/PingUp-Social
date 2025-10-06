@@ -64,10 +64,10 @@ function Post({ post, commentLimits }) {
 
       {/* Content Section */}
       <div className="space-y-3">
-        <p>{post.body}</p>
-        {post.image && (
+        <p>{post?.body}</p>
+        {post?.image && (
           <img
-            src={post.image}
+            src={post?.image}
             alt="Post content"
             className="w-full rounded-xl   object-cover "
           />
@@ -105,10 +105,10 @@ function Post({ post, commentLimits }) {
           aria-label="View comments"
         >
           <i className="fa-solid fa-comment"></i>
-          <span>{post.comments?.length || 0} Comments</span>
+          <span>{post?.comments?.length || 0} Comments</span>
         </button>
 
-        {post?.comments.reverse()?.length > 0 && (
+        {post?.comments?.reverse()?.length > 0 && (
           <div className="mt-4">
             {post?.comments.slice(0, commentLimits).map((comment) => (
               <Comment

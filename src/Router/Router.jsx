@@ -9,7 +9,6 @@ import FeedPage from "../Pages/FeedPage";
 import NotFound from "../Pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import ProtectedAuthRoute from "./ProtectedAuthRoute";
-
 const Router = createBrowserRouter([
   {
     path: "/auth",
@@ -42,12 +41,11 @@ const Router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <FeedPage /> },
-      { path: "/profile", element: <ProfilePage /> },
+      { path: "profile", element: <ProfilePage /> },
       { path: "postDetails/:id", element: <PostDetails /> },
       { path: "*", element: <NotFound /> },
     ],
   },
 ]);
-
 
 export default Router;

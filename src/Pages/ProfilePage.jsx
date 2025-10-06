@@ -53,7 +53,7 @@ function ProfilePage() {
 
   const posts = data?.posts || [];
 
- 
+ console.log("open")
   const uploadPhotoMutation = useMutation({
     mutationFn: async (file) => {
       const formData = new FormData();
@@ -94,10 +94,10 @@ onSuccess: (data) => {
           },
           comments: post.comments?.map(comment => ({
             ...comment,
-            commentCreator: comment.commentCreator?._id === userData?._id ? {
-              ...comment.commentCreator,
-              photo: data.user.photo
-            } : comment.commentCreator
+            commentCreator: comment?.commentCreator?._id === userData?._id ? {
+              ...comment?.commentCreator,
+              photo: data?.user?.photo
+            } : comment?.commentCreator
           })) || []
         }))
       };
@@ -117,10 +117,10 @@ onSuccess: (data) => {
           } : post.user,
           comments: post.comments?.map(comment => ({
             ...comment,
-            commentCreator: comment.commentCreator?._id === userData?._id ? {
-              ...comment.commentCreator,
-              photo: data.user.photo
-            } : comment.commentCreator
+            commentCreator: comment?.commentCreator?._id === userData?._id ? {
+              ...comment?.commentCreator,
+              photo: data?.user?.photo
+            } : comment?.commentCreator
           })) || []
         }))
       };
@@ -253,7 +253,7 @@ onSuccess: (data) => {
               <LoadingData times={5} />
             ) : posts.length > 0 ? (
               posts.map((post) => (
-                <Post key={post._id || post.id} post={post} commentLimits={1} />
+                <Post key={post?._id || post?.id} post={post} commentLimits={1} />
               ))
             ) : (
               <p>No posts available</p>
