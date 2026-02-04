@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import LeftNavbar from "./leftNavbar";
+import { Offline, Online } from "react-detect-offline";
+import LeftNavbar from "./LeftNavbar";
 import TopNavbar from "./TopNavbar";
 import RightNavbar from "./RightNavbar";
 
@@ -13,13 +14,22 @@ function MainLayout() {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        
         <div className="block md:hidden mb-5">
           <TopNavbar />
         </div>
+ 
+    <Offline>
+  <div className="bg-red-500 text-white text-center py-2 text-sm">
+    You are offline. Some features may not work.
+  </div>
+</Offline>
+ 
 
-        {/* Content */}
-        <div className="flex-1 overflow-auto   lg:px-4">
+
+         
+
+      
+        <div className="flex-1 overflow-auto lg:px-4">
           <Outlet />
         </div>
       </div>
@@ -29,7 +39,7 @@ function MainLayout() {
         <RightNavbar />
       </div>
     </div>
-  )
+  );
 }
 
 export default MainLayout;

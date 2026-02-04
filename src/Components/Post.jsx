@@ -108,17 +108,18 @@ function Post({ post, commentLimits }) {
           <span>{post?.comments?.length || 0} Comments</span>
         </button>
 
-        {post?.comments?.reverse()?.length > 0 && (
-          <div className="mt-4">
-            {post?.comments.slice(0, commentLimits).map((comment) => (
-              <Comment
-                key={comment?._id}
-                comment={comment}
-                userId={post?.user?._id}
-              />
-            ))}
-          </div>
-        )}
+      {post?.comments?.length > 0 && (
+  <div className="mt-4">
+    {[...post.comments].reverse().slice(0, commentLimits).map((comment) => (
+      <Comment
+        key={comment?._id}
+        comment={comment}
+        userId={post?.user?._id}
+      />
+    ))}
+  </div>
+)}
+
       </div>
     </div>
   );
