@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Offline, Online } from "react-detect-offline";
-import LeftNavbar from "./LeftNavbar";
+import LeftNavbar from "./leftNavbar";
 import TopNavbar from "./TopNavbar";
 import RightNavbar from "./RightNavbar";
 
