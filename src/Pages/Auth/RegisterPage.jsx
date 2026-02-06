@@ -17,7 +17,7 @@ const schema = z
       .min(8, "Password must be at least 8 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "Password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (@$!%*?&)"
+        "Password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (@$!%*?&)",
       ),
     rePassword: z.string(),
     dateOfBirth: z.string().min(1, "Date of birth is required"),
@@ -42,7 +42,7 @@ function RegisterPage() {
     try {
       const response = await axios.post(
         "https://linked-posts.routemisr.com/users/signup",
-        formData
+        formData,
       );
       toast.success("Registration successful!", {
         position: "top-center",
@@ -53,7 +53,7 @@ function RegisterPage() {
         draggable: true,
       });
       reset();
-      setInterval(() => {
+      setTimeout(() => {
         navigate("/login");
       }, 1000);
     } catch (error) {

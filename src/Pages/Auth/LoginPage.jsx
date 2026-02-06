@@ -50,7 +50,7 @@ let navigate=useNavigate();
         draggable: true,
       });
     
-     setInterval(()=>{
+     setTimeout(()=>{
       navigate("/")
      },1000)
     

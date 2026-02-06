@@ -1,4 +1,4 @@
-import {   createHashRouter } from "react-router-dom";
+import {   createBrowserRouter } from "react-router-dom";
 import PostDetails from "../Pages/Posts/PostDetails";
 import AuthLayout from "../Components/AuthLayout";
 import LoginPage from "../Pages/Auth/LoginPage";
@@ -9,7 +9,7 @@ import FeedPage from "../Pages/FeedPage";
 import NotFound from "../Pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import ProtectedAuthRoute from "./ProtectedAuthRoute";
-const Router = createHashRouter([
+const Router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout />,
